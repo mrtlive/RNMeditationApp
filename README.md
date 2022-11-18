@@ -1,5 +1,4 @@
-# second-week-homework-mrtlive
-second-week-homework-mrtlive created by GitHub Classroom
+# React-Native Meditation App
 
 used libs
 
@@ -8,6 +7,9 @@ Async Storage : https://react-native-async-storage.github.io/async-storage/
 Lottie Viewer : https://github.com/lottie-react-native/lottie-react-native
 
 React Navigation : https://reactnavigation.org
+
+react-redux : https://redux.js.org
+
 
 Here is some screenshots from app
 
