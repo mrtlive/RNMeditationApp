@@ -9,27 +9,18 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import {styles} from './styles';
-import {AuthContext} from '../../AuthProvider';
-
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import LottieView from 'lottie-react-native';
-
-let STORAGE_KEY = '@user';
+import {setSignIn, setUser, selectUser} from '../../redux/slices/authSlice';
+import {useDispatch, useSelector} from 'react-redux';
 
 const Welcome = ({navigation}) => {
   const [isFocused, setIsFocused] = useState(false);
-  const {setIsLoggedIn, username, setUsername} = React.useContext(AuthContext);
-  const loggedIn = async d => {
-    try {
-      await AsyncStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify({name: username, isLoading: true}),
-      );
-      setIsLoggedIn(true);
-    } catch (e) {
-      // saving error
-      console.log(e);
-    }
+  const dispatch = useDispatch();
+  const user = useSelector(selectUser);
+  const [username, setUsername] = useState(user);
+  const loggedIn = () => {
+    dispatch(setSignIn(true));
+    dispatch(setUser(username));
   };
 
   return (

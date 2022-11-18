@@ -1,10 +1,11 @@
 import React from 'react';
-import {Home, Profile, Welcome} from './screens';
-import {AuthContext} from './AuthProvider';
+import {Home, Profile, Welcome, Music} from './screens';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {selectIsLoggedIn, selectUser} from './redux/slices/authSlice';
+import {useSelector, useDispatch} from 'react-redux';
+import {setSignIn, setSignOut, setUser} from './redux/slices/authSlice';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -13,21 +14,7 @@ function Root() {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarLabelPosition: 'beside-icon',
-        tabBarLabelStyle: {
-          fontWeight: '700',
-          fontSize: 12,
-          color: 'grey',
-        },
-
-        tabBarActiveBackgroundColor: {
-          color: 'white',
-        },
-        tabBarStyle: {
-          backgroundColor: '#273537',
-          borderTopWidth: 0,
-        },
-        tabBarIconStyle: {display: 'none'},
+        tabBarActiveTintColor: '#273537',
       }}>
       <Tab.Screen name="Home" component={Home} options={{headerShown: false}} />
       <Tab.Screen
@@ -35,27 +22,29 @@ function Root() {
         component={Profile}
         options={{headerShown: false}}
       />
+      <Tab.Screen
+        name="Music"
+        component={Music}
+        options={{headerShown: false}}
+      />
     </Tab.Navigator>
   );
 }
 
 const App = () => {
-  const {isLoggedIn, setIsLoggedIn, setUsername} =
-    React.useContext(AuthContext);
+  const isLoggedInTest = useSelector(selectIsLoggedIn);
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
-    const checkUser = async () => {
-      try {
-        const userData = await AsyncStorage.getItem('@user');
-        const userObject = userData !== null ? JSON.parse(userData) : {};
-        const loggedCheck = userObject.isLoading;
-        const userName = userObject.name;
-        if (loggedCheck != null) {
-          setIsLoggedIn(loggedCheck);
-          setUsername(userName);
-        }
-      } catch (error) {
-        console.log(error);
+    const checkUser = () => {
+      if (isLoggedInTest == true) {
+        dispatch(setSignIn(true));
+        dispatch(setUser(user));
+        console.log(isLoggedInTest);
+      } else {
+        dispatch(setSignOut(true));
+        console.log(isLoggedInTest);
       }
     };
 
@@ -65,7 +54,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {isLoggedIn ? (
+        {isLoggedInTest ? (
           <Stack.Screen
             name="Root"
             component={Root}

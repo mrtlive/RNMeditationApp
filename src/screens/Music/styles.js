@@ -8,9 +8,30 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     margin: 12,
   },
+  musicbox: {
+    width: W(90),
+    height: 200,
+    backgroundColor: 'lightgreen',
+    borderRadius: 35,
+    justifyContent: 'center',
+  },
+  musictext: {
+    color: 'grey',
+    fontSize: 24,
+    textAlign: 'center',
+    fontWeight: '400',
+  },
+  list: {
+    height: 100,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   contentCol: {
-    alignSelf: 'center',
+    width: W(100),
     marginTop: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   screen: {
     marginVertical: 12,

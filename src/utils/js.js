@@ -77,3 +77,19 @@ export const setToHappen = (fn, date) => {
 };
 
 export const checkString = d => typeof d === 'string' && (d || '').length > 0;
+
+export const getDay = () => {
+  const weekday = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
+
+  const d = new Date();
+  let day = weekday[d.getDay()];
+  return day;
+};
