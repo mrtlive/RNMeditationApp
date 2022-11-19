@@ -39,7 +39,7 @@ const Welcome = ({navigation}) => {
           </View>
           <View style={styles.box}>
             <View style={styles.welcome}>
-              <Text style={{fontSize: 26, marginBottom: 10}}>WELCOME</Text>
+              <Text style={{fontSize: 26, marginBottom: 10}}>Welcome</Text>
               <Text style={{fontSize: 9}}>Do Meditation, Stay Focused.</Text>
               <Text style={{fontSize: 12}}>Live a healhy life.</Text>
             </View>
